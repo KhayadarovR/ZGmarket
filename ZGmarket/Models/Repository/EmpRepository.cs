@@ -1,11 +1,6 @@
 ﻿using Dapper;
-using Microsoft.Extensions.FileSystemGlobbing;
 using MySqlConnector;
-using System.Configuration;
-using System.Data;
-using System.Data.Common;
 using ZGmarket.Data;
-using ZGmarket.Models.Contracts;
 
 namespace ZGmarket.Models.Repository;
 

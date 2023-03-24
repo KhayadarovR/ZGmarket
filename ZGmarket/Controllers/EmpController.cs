@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.WebSockets;
 using ZGmarket.Data;
 using ZGmarket.Models;
 using ZGmarket.Models.Repository;
 
 namespace ZGmarket.Controllers
 {
-    [Authorize(Roles = Positions.root)]
+    [Authorize(Roles = $"{Positions.root},{Positions.Admin}")]
     public class EmpController : Controller
     {
         private readonly EmpRepository _empRepo;
@@ -44,44 +45,35 @@ namespace ZGmarket.Controllers
             }
         }
 
-        // GET: EmpController/Edit/5
-        public ActionResult Edit(int id)
+        // GET: Emp/Edit/5
+        public async Task<IActionResult> Edit(int id)
         {
-            return View();
-        }
-
-        // POST: EmpController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
+            Emp dbEmp;
             try
             {
-                return RedirectToAction(nameof(Index));
+                dbEmp = await _empRepo.GetEmp(id);
+                return View(dbEmp);
             }
-            catch
+            catch (Exception e)
             {
+                ModelState.AddModelError("", "Некорректные данные " + e);
                 return View();
             }
         }
 
-        // GET: EmpController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: EmpController/Delete/5
+        // POST: Emp/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(int id, Emp updateEmp)
         {
+            if (!ModelState.IsValid) return View(updateEmp);
             try
             {
+                var dbEmp = await _empRepo.EditEmp(id, updateEmp);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception e)
             {
+                ModelState.AddModelError("", "Некорректные данные " + e);
                 return View();
             }
         }

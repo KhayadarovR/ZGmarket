@@ -1,13 +1,15 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ZGmarket.Models.Contracts;
+using ZGmarket.Data;
+using ZGmarket.Models;
+using ZGmarket.Models.Repository;
 
 namespace ZGmarket.Controllers
 {
     public class NomTypeController : Controller
     {
-        private readonly INomTypeRepository _typeRepo;
-        public NomTypeController(INomTypeRepository typeRepo)
+        private readonly NomTypeRepository _typeRepo;
+        public NomTypeController(NomTypeRepository typeRepo)
         {
             _typeRepo = typeRepo;
         }
@@ -32,13 +34,9 @@ namespace ZGmarket.Controllers
             }
         }
 
-        // GET: NomTypeController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
         // GET: NomTypeController/Create
+
+        [Authorize(Roles = $"{Positions.root},{Positions.Admin}")]
         public ActionResult Create()
         {
             return View();
@@ -46,58 +44,35 @@ namespace ZGmarket.Controllers
 
         // POST: NomTypeController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        [Authorize(Roles = $"{Positions.root},{Positions.Admin}")]
+        public async Task<IActionResult> Create(NomType model)
         {
             try
             {
+                NomType dbType = await _typeRepo.AddNomType(model);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch(Exception e)
             {
-                return View();
+                ModelState.AddModelError("", e.Message);
+                return View(model);
             }
         }
 
-        // GET: NomTypeController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: NomTypeController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
 
         // GET: NomTypeController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: NomTypeController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        [Authorize(Roles = $"{Positions.root},{Positions.Admin}")]
+        public async Task<IActionResult> Delete(int id)
         {
             try
             {
+                await _typeRepo.DeleteNomType(id);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch(Exception e)
             {
-                return View();
+                ModelState.AddModelError("", e.Message);
+                return RedirectToAction(nameof(Index));
             }
         }
     }

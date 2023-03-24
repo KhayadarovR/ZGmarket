@@ -1,8 +1,5 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Server.IIS;
-using Microsoft.Extensions.Options;
 using MySqlConnector;
-using ZGmarket.Models.Contracts;
 using ZGmarket.Models.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,8 +14,9 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 builder.Services.AddAuthorization();
 
 
-builder.Services.AddScoped<INomTypeRepository, NomTypeRepository>();
+builder.Services.AddScoped<NomTypeRepository, NomTypeRepository>();
 builder.Services.AddScoped<EmpRepository, EmpRepository>();
+builder.Services.AddScoped<NomRepository, NomRepository>();
 
 
 
@@ -44,3 +42,6 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+
+//Изминить типы на сложные int => NomType

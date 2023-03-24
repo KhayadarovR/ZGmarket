@@ -26,14 +26,23 @@
             <a class="btn btn-outline-danger" asp-controller="Account" asp-action="Logout">Выйти</a>
             <a class="btn btn-outline-warning" asp-controller="Account" asp-action="Edit">Редактировать</a>
         </div>
-        @if (User.IsInRole(Positions.root))
+
+        @if (User.IsInRole(Positions.root) || User.IsInRole(Positions.Admin))
         {
-            <div class="col">
+            <div class="col d-grid gap-2">
                 <a asp-controller="Emp" asp-action="Index" type="button" class="btn btn-info">Сотрудники</a>
-                <a asp-controller="Account" asp-action="Register" type="button" class="btn btn-info">Товары</a>
-                <a asp-controller="Account" asp-action="Register" type="button" class="btn btn-info">Приходные накладные</a>
+                <a asp-controller="NomType" asp-action="Index" type="button" class="btn btn-info">Типы товаров</a>
+                <a asp-controller="Nom" asp-action="Index" type="button" class="btn btn-info">Номенклатура</a>
             </div>
         }
+
+        @if (User.IsInRole(Positions.Salesman) || User.IsInRole(Positions.Director))
+        {
+            <div class="col d-grid gap-2">
+                <a asp-controller="Nom" asp-action="Index" type="button" class="btn btn-info">Номенклатура</a>
+            </div>
+        }
+
     </div>
 </div>
 
