@@ -1,0 +1,42 @@
+﻿@using ZGmarket.Models;
+@using ZGmarket.Data;
+
+
+@{
+    ViewData["Title"] = "Account";
+}
+@model Emp
+
+<div class="container text-right">
+    <div class="row align-items-end">
+        <div class="col">
+            <h1 class="display-4">Кабинет сотрудника</h1>
+
+            <div class="card" style="width: 18rem;">
+                <img src="https://cdn-icons-png.flaticon.com/512/1869/1869679.png" class="card-img-top" alt="">
+                <div class="card-body">
+                    <h5 class="card-title">@Model.Name @Model.LastName</h5>
+                    <p class="card-text">@Model.Phone</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Должность: @Model.Position</li>
+                    <li class="list-group-item">Дата Рождения: @Model.BirthDate</li>
+                </ul>
+            </div>
+            <a class="btn btn-outline-danger" asp-controller="Account" asp-action="Logout">Выйти</a>
+            <a class="btn btn-outline-warning" asp-controller="Account" asp-action="Edit">Редактировать</a>
+        </div>
+        @if (User.IsInRole(Positions.root))
+        {
+            <div class="col">
+                <a asp-controller="Emp" asp-action="Index" type="button" class="btn btn-info">Сотрудники</a>
+                <a asp-controller="Account" asp-action="Register" type="button" class="btn btn-info">Товары</a>
+                <a asp-controller="Account" asp-action="Register" type="button" class="btn btn-info">Приходные накладные</a>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="text-center">
+
+</div>
