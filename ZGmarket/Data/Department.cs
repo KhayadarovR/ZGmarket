@@ -1,16 +1,32 @@
-﻿namespace ZGmarket.Data
+﻿using NuGet.Protocol;
+
+namespace ZGmarket.Data
 {
-    public class Department
+    public static class Department
     {
-        public const string unknown = "Прочее";
-        public const string green = "Фрукты-овощи";
-        public const string bread = "Хлебная продукция";
-        public const string meatFish = "Мясо\\Рыба";
-        public const string confectionery = "Кондитерские изделия";
-        public const string grocery = "Бакалея";
-        public const string milky = "Молочная продукция";
-        public const string juiceWater = "Соки\\Вода";
-        public const string alcohol = "Алкоголь";
-        public const string animals = "Товары для животных";
+        public static string unknown = "Прочее";
+        public static string green = "Фрукты-овощи";
+        public static string bread = "Хлебная продукция";
+        public static string meatFish = "Мясо\\Рыба";
+        public static string confectionery = "Кондитерские изделия";
+        public static string grocery = "Бакалея";
+        public static string milky = "Молочная продукция";
+        public static string juiceWater = "Соки\\Вода";
+        public static string alcohol = "Алкоголь";
+        public static string animals = "Товары для животных";
+
+        public static readonly List<string> DepartList = new List<string>()
+        {
+            unknown,
+            green,
+            bread,
+            meatFish,
+            confectionery,
+            grocery,
+            milky,
+            juiceWater,
+            alcohol,
+            animals
+        };
     }
 }

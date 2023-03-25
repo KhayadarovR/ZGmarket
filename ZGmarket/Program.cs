@@ -17,7 +17,7 @@ builder.Services.AddAuthorization();
 builder.Services.AddScoped<NomTypeRepository, NomTypeRepository>();
 builder.Services.AddScoped<EmpRepository, EmpRepository>();
 builder.Services.AddScoped<NomRepository, NomRepository>();
-
+builder.Services.AddScoped<StockRepository, StockRepository>();
 
 
 var app = builder.Build();
