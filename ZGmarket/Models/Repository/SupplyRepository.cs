@@ -20,7 +20,7 @@ public class SupplyRepository
                             stock_id as {nameof(Models.Supply.StockId)},
                             emp_id as {nameof(Models.Supply.EmpId)},
                             quantity as {nameof(Models.Supply.Quantity)},
-                            delivery as {nameof(Models.Supply.Delivery)},
+                            delivery as {nameof(Models.Supply.Delivery)}
                             FROM supply";
 
         var Supply = await _context.QueryAsync<Supply>(query);
@@ -34,7 +34,7 @@ public class SupplyRepository
                             stock_id as {nameof(Models.Supply.StockId)},
                             emp_id as {nameof(Models.Supply.EmpId)},
                             quantity as {nameof(Models.Supply.Quantity)},
-                            delivery as {nameof(Models.Supply.Delivery)},
+                            delivery as {nameof(Models.Supply.Delivery)}
                             FROM supply";
 
         var Supply =  _context.QueryFirst<Supply>(query);
