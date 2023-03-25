@@ -66,27 +66,29 @@ namespace ZGmarket.Controllers
         // GET: Nom/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
-            Nom dbNom;
-            try
+            var _types = await _typeRepo.GetTypes();
+            var _nom = await _nomRepo.GetNom(id);
+
+            List<string> stringTypes = new();
+
+            foreach (NomType item in _types)
             {
-                dbNom = await _nomRepo.GetNom(id);
-                return View(dbNom);
+                stringTypes.Add(item.Title.ToString().ToLower());
             }
-            catch (Exception e)
-            {
-                ModelState.AddModelError("", "Некорректные данные " + e);
-                return View();
-            }
+            NomCreate nomCreate = new NomCreate() { Types = stringTypes, Nom = _nom };
+            return View(nomCreate);
         }
 
         // POST: Nom/Edit/5
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, Nom updateNom)
+        public async Task<IActionResult> Edit(int id, NomCreate updateNom)
         {
-            if (!ModelState.IsValid) return View(updateNom);
+
+            NomType curentTypeId = await _typeRepo.GetNomType(updateNom.Nom.NType);
+            updateNom.Nom.TypeId = curentTypeId.Id;
             try
             {
-                var dbNom = await _nomRepo.EditNom(id, updateNom);
+                var dbNom = await _nomRepo.EditNom(id, updateNom.Nom);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception e)
