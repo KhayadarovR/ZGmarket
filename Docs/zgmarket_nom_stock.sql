@@ -16,24 +16,21 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `emp`
+-- Table structure for table `nom_stock`
 --
 
-DROP TABLE IF EXISTS `emp`;
+DROP TABLE IF EXISTS `nom_stock`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `emp` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `last_name` varchar(255) DEFAULT NULL,
-  `birth_date` date DEFAULT NULL,
-  `position` varchar(255) DEFAULT NULL,
-  `phone` varchar(255) NOT NULL,
-  `password` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `phone_UNIQUE` (`phone`),
-  UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `nom_stock` (
+  `stock_id` bigint unsigned DEFAULT NULL,
+  `nom_id` bigint unsigned DEFAULT NULL,
+  `quantity` int NOT NULL,
+  KEY `stoke_ibfk_1` (`stock_id`),
+  KEY `nom_ibfk_2` (`nom_id`),
+  CONSTRAINT `nom_ibfk_2` FOREIGN KEY (`nom_id`) REFERENCES `nom` (`id`),
+  CONSTRAINT `stoke_ibfk_1` FOREIGN KEY (`stock_id`) REFERENCES `stock` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -45,4 +42,4 @@ CREATE TABLE `emp` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-25 17:27:07
+-- Dump completed on 2023-03-25 17:27:08

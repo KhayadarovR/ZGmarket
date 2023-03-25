@@ -26,13 +26,14 @@ CREATE TABLE `nom` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `type_id` bigint unsigned DEFAULT NULL,
   `title` varchar(255) NOT NULL,
-  `expiration` varchar(255) DEFAULT NULL,
+  `shelf_life` int DEFAULT NULL,
   `price` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
+  UNIQUE KEY `title_UNIQUE` (`title`),
   KEY `type_ind` (`type_id`),
   CONSTRAINT `nom_ibfk_1` FOREIGN KEY (`type_id`) REFERENCES `n_type` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -44,4 +45,4 @@ CREATE TABLE `nom` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-22 20:46:35
+-- Dump completed on 2023-03-25 17:27:07

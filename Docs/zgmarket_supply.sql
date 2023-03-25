@@ -27,7 +27,7 @@ CREATE TABLE `supply` (
   `nom_id` bigint unsigned DEFAULT NULL,
   `stock_id` bigint unsigned DEFAULT NULL,
   `emp_id` bigint unsigned DEFAULT NULL,
-  `quantity` varchar(255) DEFAULT NULL,
+  `quantity` int NOT NULL,
   `delivery` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
@@ -49,4 +49,4 @@ CREATE TABLE `supply` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-22 20:46:36
+-- Dump completed on 2023-03-25 17:27:07
