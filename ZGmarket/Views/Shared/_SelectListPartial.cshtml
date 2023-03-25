@@ -1,0 +1,9 @@
+﻿@model ZGmarket.Models.ViewModels.NomCreate;
+
+<div class="form-group">
+    <select asp-for="Nom.NType" class="form-select" aria-label="Default select example">
+        @foreach(string item in Model.Types){
+            <option value="@item">@item</option>
+        }
+    </select>
+</div>

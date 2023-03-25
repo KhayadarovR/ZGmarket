@@ -5,6 +5,7 @@ using System.Net.WebSockets;
 using ZGmarket.Data;
 using ZGmarket.Models;
 using ZGmarket.Models.Repository;
+using ZGmarket.Models.ViewModels;
 
 namespace ZGmarket.Controllers
 {
@@ -35,24 +36,30 @@ namespace ZGmarket.Controllers
         public async Task<IActionResult> Create()
         {
             var _types = await _typeRepo.GetTypes();
-            ViewBag.Types = _types.ToList();
-            ViewBag.FirstType = _types.First().Title;
-            return View();
+            List<string> stringTypes = new();
+            foreach (NomType item in _types)
+            {
+                stringTypes.Add(item.Title.ToString().ToLower());
+            }
+            NomCreate nomCreate = new NomCreate() { Types = stringTypes };
+            return View(nomCreate);
         }
 
         // POST: Nom/Create
         [HttpPost]
-        public async Task<IActionResult> Create(Nom newNom)
+        public async Task<IActionResult> Create(NomCreate nomCreate)
         {
+            NomType curentTypeId = await _typeRepo.GetNomType(nomCreate.Nom.NType);
+            nomCreate.Nom.TypeId = curentTypeId.Id;
             try
             {
-                await _nomRepo.AddNom(newNom);
+                await _nomRepo.AddNom(nomCreate.Nom);
                 return RedirectToAction(nameof(Index));
             }
             catch(Exception e)
             {
                 ModelState.AddModelError("", "Некорректные данные " + e);
-                return View(newNom);
+                return View(nomCreate);
             }
         }
 
@@ -101,6 +108,11 @@ namespace ZGmarket.Controllers
                 ModelState.AddModelError("", e.Message);
                 return RedirectToAction(nameof(Index));
             }
+        }
+
+        public IActionResult SelectListPartial()
+        {
+            return PartialView();
         }
     }
 

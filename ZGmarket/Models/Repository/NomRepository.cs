@@ -8,32 +8,40 @@ namespace ZGmarket.Models.Repository;
 public class NomRepository
 {
     private readonly MySqlConnection _context;
-    public NomRepository(MySqlConnection context)
+    private readonly NomTypeRepository _nomTypeRepo;
+    public NomRepository(MySqlConnection context, NomTypeRepository nomTypeRepo)
     {
         _context = context;
+        _nomTypeRepo = nomTypeRepo;
     }
 
     public async Task<IEnumerable<Nom>> GetNom()
     {
-        var query = $@"SELECT id as {nameof(Models.Nom.Id)}, 
-                            type_id as {nameof(Models.Nom.NomTypeId)}, 
-                            title as {nameof(Models.Nom.Title)},
-                            expiration as {nameof(Models.Nom.ShelfLife)},
+        var query = $@"SELECT nom.id as {nameof(Models.Nom.Id)}, 
+                            n_type.title as {nameof(Models.Nom.NType)},
+                            nom.title as {nameof(Models.Nom.Title)},
+                            shelf_life as {nameof(Models.Nom.ShelfLife)},
                             price as {nameof(Models.Nom.Price)}
-                            FROM `zgmarket`.`nom`;";
+                            from nom
+                            left join n_type
+                            on(nom.type_id = n_type.id)";
 
-        var Nom = await _context.QueryAsync<Nom>(query);
-        return Nom.ToList();
+        var Noms = await _context.QueryAsync<Nom>(query);
+
+        return Noms.ToList();
     }
 
     public async Task<Nom> GetNom(int id)
     {
-        var query = $@"SELECT id as {nameof(Models.Nom.Id)}, 
-                            type_id as {nameof(Models.Nom.NomTypeId)}, 
-                            title as {nameof(Models.Nom.Title)},
-                            expiration as {nameof(Models.Nom.ShelfLife)},
+        var query = $@"SELECT nom.id as {nameof(Models.Nom.Id)}, 
+                            n_type.title as {nameof(Models.Nom.NType)},
+                            nom.title as {nameof(Models.Nom.Title)},
+                            shelf_life as {nameof(Models.Nom.ShelfLife)},
                             price as {nameof(Models.Nom.Price)}
-                            FROM `zgmarket`.`nom`";
+                            from nom
+                            left join n_type
+                            on(nom.type_id = n_type.id)
+                            where nom.id = '{id}'";
 
         var Nom =  _context.QueryFirst<Nom>(query);
         if (Nom == null)
@@ -45,12 +53,15 @@ public class NomRepository
     }
     public async Task<Nom> GetNom(string title)
     {
-        var query = $@"SELECT id as {nameof(Models.Nom.Id)}, 
-                            type_id as {nameof(Models.Nom.NomTypeId)}, 
-                            title as {nameof(Models.Nom.Title)},
-                            expiration as {nameof(Models.Nom.ShelfLife)},
+        var query = $@"SELECT nom.id as {nameof(Models.Nom.Id)}, 
+                            n_type.title as {nameof(Models.Nom.NType)},
+                            nom.title as {nameof(Models.Nom.Title)},
+                            shelf_life as {nameof(Models.Nom.ShelfLife)},
                             price as {nameof(Models.Nom.Price)}
-                            FROM `zgmarket`.`nom`";
+                            from nom
+                            left join n_type
+                            on(nom.type_id = n_type.id)
+                            where nom.title = '{title}'";
 
         Nom Nom = await _context.QueryFirstOrDefaultAsync<Nom>(query);
         if (Nom == null)
@@ -64,8 +75,8 @@ public class NomRepository
     public async Task<Nom> AddNom(Nom model)
     {
 
-        var query = $@"INSERT INTO `zgmarket`.`nom` (`type_id`, `title`, `expiration`, `price`) 
-                    VALUES ('{model.NomTypeId}', '{model.Title}', '{model.ShelfLife}', '{model.Price}');";
+        var query = $@"INSERT INTO `zgmarket`.`nom` (`type_id`, `title`, `shelf_life`, `price`) 
+                    VALUES ('{model.TypeId}', '{model.Title}', '{model.ShelfLife}', '{model.Price}');";
 
         try
         {
@@ -83,7 +94,7 @@ public class NomRepository
     {
 
         var query = $@"UPDATE `zgmarket`.`nom` 
-                    SET `type_id` = '{model.NomTypeId}', `title` = '{model.Title}', `expiration` = '{model.ShelfLife}', `price` = '{model.Price}' 
+                    SET `type_id` = '{model.TypeId}', `title` = '{model.Title}', `shelf_life` = '{model.ShelfLife}', `price` = '{model.Price}' 
                     WHERE (`id` = '{id}');";
 
         try

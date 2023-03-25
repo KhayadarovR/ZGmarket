@@ -20,6 +20,9 @@
                 @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.NType)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.ShelfLife)
             </th>
             <th>
@@ -38,10 +41,13 @@
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.NType)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.ShelfLife) д.
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Price)
+                @Html.DisplayFor(modelItem => item.Price) руб.
             </td>
             <td>
                 @Html.ActionLink("Редактировать", "Edit", new { /* id=item.PrimaryKey */ }) |

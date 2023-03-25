@@ -21,7 +21,7 @@ public class NomTypeRepository
 
     public async Task<NomType> GetNomType(string title)
     {
-        var query = $"SELECT * FROM n_type where (title = '{title}')";
+        var query = $"SELECT * FROM n_type where (title = '{title.ToLower()}')";
 
         var type = await _context.QuerySingleAsync<NomType>(query);
         return type;
@@ -30,7 +30,7 @@ public class NomTypeRepository
     public async Task<NomType> AddNomType(NomType model)
     {
         var query = $"INSERT INTO `zgmarket`.`n_type` (`title`) " +
-            $"VALUES ('{model.Title}');";
+            $"VALUES ('{model.Title.ToLower()}');";
 
         try
         {

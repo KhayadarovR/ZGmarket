@@ -6,8 +6,9 @@ public class Nom
 {
     
     public int Id { get; set; }
-    
-    public int NomTypeId { get; set; }
+
+    public int TypeId { get; set; }
+    public string NType { get; set; }
 
     [Required]
     public string Title { get; set; }
