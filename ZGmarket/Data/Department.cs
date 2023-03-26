@@ -1,6 +1,4 @@
-﻿using NuGet.Protocol;
-
-namespace ZGmarket.Data
+﻿namespace ZGmarket.Data
 {
     public static class Department
     {

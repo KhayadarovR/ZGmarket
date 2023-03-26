@@ -1,0 +1,50 @@
+﻿@using ZGmarket.Data;
+@model IEnumerable<ZGmarket.Models.ViewModels.NomStockView>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Список товаров на складах</h1>
+
+<p>
+    <a asp-controller="Supply" asp-action="Create">Создать поставку</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Название склада
+            </th>
+            <th>
+                Товар
+            </th>
+            <th>
+                Количество
+            </th>
+            <th>
+                @Html.ActionLink("Товары по отделам", "Index", new { depart = true })
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Stock.Title)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Nom.Title)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Quantity) шт.
+            </td>
+            <td>
+                @Html.ActionLink("Перенести в отдел зала", "Edit", new { item.NomStok.Id })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

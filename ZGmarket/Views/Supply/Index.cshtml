@@ -1,0 +1,63 @@
+﻿@model IEnumerable<ZGmarket.Models.ViewModels.SupplyView>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Спсисок поставок</h1>
+
+<p>
+    <a asp-action="Create">Создать поставку</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Дата поставки
+            </th>
+            <th>
+                Склад
+            </th>
+            <th>
+                Товар
+            </th>
+            <th>
+                Количество
+            </th>
+            <th>
+                Сотрудник
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Supply.Id)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.Supply.Delivery)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Stock.Title)
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nom.Title)
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Supply.Quantity) шт.
+            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Emp.Position)
+                    @Html.DisplayFor(modelItem => item.Emp.Name)
+                    @Html.DisplayFor(modelItem => item.Emp.LastName)
+                </td>
+        </tr>
+}
+    </tbody>
+</table>

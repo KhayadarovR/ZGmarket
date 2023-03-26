@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Net.WebSockets;
 using ZGmarket.Data;
 using ZGmarket.Models;
 using ZGmarket.Models.Repository;
@@ -26,11 +24,11 @@ namespace ZGmarket.Controllers
             return View(Noms);
         }
 
-/*        public async Task<IActionResult> Index(IndexViewModel filtr)
-        {
-            IEnumerable<Nom> Noms = await _nomRepo.GetNom();
-            return View(Noms);
-        }*/
+        /*        public async Task<IActionResult> Index(IndexViewModel filtr)
+                {
+                    IEnumerable<Nom> Noms = await _nomRepo.GetNom();
+                    return View(Noms);
+                }*/
 
         // GET: Nom/Create
         public async Task<IActionResult> Create()
@@ -56,7 +54,7 @@ namespace ZGmarket.Controllers
                 await _nomRepo.AddNom(nomCreate.Nom);
                 return RedirectToAction(nameof(Index));
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 ModelState.AddModelError("", "Некорректные данные " + e);
                 return View(nomCreate);

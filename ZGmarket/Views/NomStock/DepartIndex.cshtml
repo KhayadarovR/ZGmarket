@@ -1,0 +1,45 @@
+﻿@model IEnumerable<ZGmarket.Models.ViewModels.NomStockView>
+
+@{
+    ViewData["Title"] = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Товары в отделах</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Отдел магазина
+            </th>
+            <th>
+                Товар
+            </th>
+            <th>
+                Количество
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in @Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Depart)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nom.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity) шт.
+                </td>
+                <td>
+                    @Html.ActionLink("Удалить", "Delete", new { item.NomStok.Id })
+                    @Html.ActionLink("Карточка на сайте", "ItemCard", new { item.NomStok.Id })
+                </td>
+            </tr>
+}
+    </tbody>
+</table>

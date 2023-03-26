@@ -4,7 +4,7 @@ namespace ZGmarket.Models;
 
 public class Supply
 {
-    
+
     public int Id { get; set; }
 
     public int NomId { get; set; }
@@ -16,7 +16,7 @@ public class Supply
 
     [Required]
     public int Quantity { get; set; }
-    
+
     [Required]
-    public DateOnly Delivery { get; set; }
+    public DateTime Delivery { get; set; }
 }

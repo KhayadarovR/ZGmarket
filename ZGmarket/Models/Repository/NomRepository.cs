@@ -1,7 +1,5 @@
 ﻿using Dapper;
 using MySqlConnector;
-using ZGmarket.Data;
-using ZGmarket.Models;
 
 namespace ZGmarket.Models.Repository;
 
@@ -43,7 +41,7 @@ public class NomRepository
                             on(nom.type_id = n_type.id)
                             where nom.id = '{id}'";
 
-        var Nom =  _context.QueryFirst<Nom>(query);
+        var Nom = _context.QueryFirst<Nom>(query);
         if (Nom == null)
         {
             throw new Exception($"id({id}) not found");

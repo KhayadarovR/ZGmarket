@@ -1,12 +1,10 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ZGmarket.Models.Repository;
-using ZGmarket.Models;
 using System.Security.Claims;
-using ZGmarket.Data;
-using System.Security.Cryptography;
+using ZGmarket.Models;
+using ZGmarket.Models.Repository;
 
 namespace ZGmarket.Controllers;
 

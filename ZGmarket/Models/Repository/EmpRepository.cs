@@ -38,7 +38,7 @@ public class EmpRepository
                             password as {nameof(Emp.Password)}
                             FROM emp where id = {id}";
 
-        var emp =  _context.QueryFirst<Emp>(query);
+        var emp = _context.QueryFirst<Emp>(query);
         if (emp == null)
         {
             throw new Exception($"id({id}) not found");
@@ -68,7 +68,7 @@ public class EmpRepository
 
     public async Task<Emp> AddEmp(Emp model)
     {
-        model.Position = model.Position==null? Positions.Trainee: model.Position;
+        model.Position = model.Position == null ? Positions.Trainee : model.Position;
 
         var query = $"INSERT INTO `zgmarket`.`emp` (`name`, `last_name`, `birth_date`, `position`, `phone`, `password`) " +
             $"VALUES ('{model.Name}', '{model.Name}', '{model.BirthDate.ToShortDateString()}', '{model.Position}', '{model.Phone}', '{model.Password}');";

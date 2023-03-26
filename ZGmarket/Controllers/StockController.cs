@@ -46,7 +46,7 @@ namespace ZGmarket.Controllers
                 Stock dbType = await _stockRepo.AddStock(model);
                 return RedirectToAction(nameof(Index));
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 ModelState.AddModelError("", e.Message);
                 return View(model);
@@ -94,7 +94,7 @@ namespace ZGmarket.Controllers
                 await _stockRepo.DeleteStock(id);
                 return RedirectToAction(nameof(Index));
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 ModelState.AddModelError("", e.Message);
                 return RedirectToAction(nameof(Index));

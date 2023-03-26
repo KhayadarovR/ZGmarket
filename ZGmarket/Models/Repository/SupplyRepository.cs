@@ -1,7 +1,5 @@
 ﻿using Dapper;
 using MySqlConnector;
-using ZGmarket.Data;
-using ZGmarket.Models;
 
 namespace ZGmarket.Models.Repository;
 
@@ -27,7 +25,7 @@ public class SupplyRepository
         return Supply.ToList();
     }
 
-    public async Task<Supply> GetSupply(int id)
+    public async Task<IEnumerable<Supply>> GetSupply(int stockId)
     {
         var query = $@"SELECT id as {nameof(Models.Supply.Id)}, 
                             nom_id as {nameof(Models.Supply.NomId)}, 
@@ -35,35 +33,40 @@ public class SupplyRepository
                             emp_id as {nameof(Models.Supply.EmpId)},
                             quantity as {nameof(Models.Supply.Quantity)},
                             delivery as {nameof(Models.Supply.Delivery)}
-                            FROM supply";
+                            FROM supply
+                            WHERE stock_id = {stockId}";
 
-        var Supply =  _context.QueryFirst<Supply>(query);
-        if (Supply == null)
+        var supplys = await _context.QueryAsync<Supply>(query);
+        if (supplys == null)
         {
-            throw new Exception($"id({id}) not found");
+            throw new Exception($"stock ({stockId}) not found");
         }
 
-        return Supply;
+        return supplys;
     }
-  
 
-    public async Task<NomStock> AddSupply(Supply model)
+
+    public async Task<IEnumerable<Supply>> AddSupply(Supply model)
     {
-
+        string date = $"{model.Delivery.Year}-{model.Delivery.Month}-{model.Delivery.Day}";
         var query = $@"INSERT INTO `zgmarket`.`supply` (`nom_id`, `stock_id`, `emp_id`, `quantity`, `delivery`) 
-                    VALUES ('{model.NomId}', '{model.StockId}', '{model.EmpId}', '{model.Quantity}', '{model.Delivery}');
-                    INSERT INTO `zgmarket`.`nom_stock` ( `stock_id`, `nom_id`, `quantity`) 
-                    VALUES ('{model.StockId}', '{model.NomId}', '{model.Quantity}')";
+                    VALUES ('{model.NomId}', '{model.StockId}', '{model.EmpId}', '{model.Quantity}', '{date}')";
 
         try
         {
             await _context.QueryAsync<Supply>(query);
-            var resdb = new NomStock() { NomId = model.NomId, StockId= model.StockId, Quantity = model.Quantity };
+
+            var addStockNom = $@"INSERT INTO `zgmarket`.`nom_stock` ( `stock_id`, `nom_id`, `quantity`) 
+                    VALUES ('{model.StockId}', '{model.NomId}', '{model.Quantity}')";
+
+            await _context.QueryAsync<NomStock>(addStockNom);
+
+            var resdb = await GetSupply(model.StockId);
             return resdb;
         }
         catch (Exception ex)
         {
-            throw new Exception("Ошибка при добавлении нового товара " + ex.Message);
+            throw new Exception("Ошибка при добавлении новой поставки " + ex.Message);
         }
     }
 }

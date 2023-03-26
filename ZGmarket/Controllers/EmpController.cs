@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Net.WebSockets;
 using ZGmarket.Data;
 using ZGmarket.Models;
 using ZGmarket.Models.Repository;
@@ -38,7 +36,7 @@ namespace ZGmarket.Controllers
                 await _empRepo.AddEmp(newEmp);
                 return RedirectToAction(nameof(Index));
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 ModelState.AddModelError("", "Некорректные данные " + e);
                 return View(newEmp);

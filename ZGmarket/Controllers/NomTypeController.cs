@@ -52,7 +52,7 @@ namespace ZGmarket.Controllers
                 NomType dbType = await _typeRepo.AddNomType(model);
                 return RedirectToAction(nameof(Index));
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 ModelState.AddModelError("", e.Message);
                 return View(model);
@@ -69,7 +69,7 @@ namespace ZGmarket.Controllers
                 await _typeRepo.DeleteNomType(id);
                 return RedirectToAction(nameof(Index));
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 ModelState.AddModelError("", e.Message);
                 return RedirectToAction(nameof(Index));

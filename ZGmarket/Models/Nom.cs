@@ -4,7 +4,7 @@ namespace ZGmarket.Models;
 
 public class Nom
 {
-    
+
     public int Id { get; set; }
 
     public int TypeId { get; set; }
@@ -12,7 +12,7 @@ public class Nom
 
     [Required]
     public string Title { get; set; }
-    
+
     public int ShelfLife { get; set; }
 
     [Required]

@@ -1,7 +1,5 @@
 ﻿using Dapper;
 using MySqlConnector;
-using ZGmarket.Data;
-using ZGmarket.Models;
 
 namespace ZGmarket.Models.Repository;
 
@@ -35,7 +33,7 @@ public class StockRepository
                             description as {nameof(Models.Stock.Description)}
                             from stock where `id` = {id}";
 
-        var Stock =  _context.QueryFirst<Stock>(query);
+        var Stock = _context.QueryFirst<Stock>(query);
         if (Stock == null)
         {
             throw new Exception($"id({id}) not found");
