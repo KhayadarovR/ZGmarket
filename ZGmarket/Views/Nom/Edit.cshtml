@@ -15,17 +15,17 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             @await Html.PartialAsync("_SelectListPartial", Model)
             <div class="form-group">
-                <label asp-for="Nom.Title" class="control-label"></label>
+                <label asp-for="Nom.Title" class="control-label">Товар</label>
                 <input asp-for="Nom.Title" class="form-control" />
                 <span asp-validation-for="Nom.Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Nom.ShelfLife" class="control-label"></label>
+                <label asp-for="Nom.ShelfLife" class="control-label">Срок</label>
                 <input type="number" asp-for="Nom.ShelfLife" class="form-control" />
                 <span asp-validation-for="Nom.ShelfLife" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Nom.Price" class="control-label"></label>
+                <label asp-for="Nom.Price" class="control-label">Цена</label>
                 <input type="number" asp-for="Nom.Price" class="form-control" />
                 <span asp-validation-for="Nom.Price" class="text-danger"></span>
             </div>

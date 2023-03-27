@@ -15,7 +15,7 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Depart" class="control-label"></label>
+                <label asp-for="Depart" class="control-label">Отдел в зале</label>
                 <select asp-for="Depart" class="form-select" aria-label="Default select example">
                     @foreach (string item in Department.DepartList)
                     {
