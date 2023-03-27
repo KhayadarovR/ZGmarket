@@ -34,20 +34,21 @@ public class NomRepository
         var query = $@"SELECT nom.id as {nameof(Models.Nom.Id)}, 
                             n_type.title as {nameof(Models.Nom.NType)},
                             nom.title as {nameof(Models.Nom.Title)},
-                            shelf_life as {nameof(Models.Nom.ShelfLife)},
-                            price as {nameof(Models.Nom.Price)}
+                            nom.shelf_life as {nameof(Models.Nom.ShelfLife)},
+                            nom.price as {nameof(Models.Nom.Price)},
+                            nom.type_id as {nameof(Nom.TypeId)}
                             from nom
                             left join n_type
                             on(nom.type_id = n_type.id)
                             where nom.id = '{id}'";
 
-        var Nom = _context.QueryFirst<Nom>(query);
-        if (Nom == null)
+        var nombd = await _context.QueryFirstAsync<Nom>(query);
+        if (nombd == null)
         {
             throw new Exception($"id({id}) not found");
         }
 
-        return Nom;
+        return nombd;
     }
     public async Task<Nom> GetNom(string title)
     {

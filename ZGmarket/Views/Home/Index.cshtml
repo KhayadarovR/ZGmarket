@@ -1,8 +1,40 @@
-﻿@{
+﻿@using ZGmarket.Data;
+@using ZGmarket.Models.ViewModels;
+
+@model List<HomeView>
+
+@{
     ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <div class="">
+        <div class="row">
+            <div class="col-3">
+                <div class="btn-group-vertical">
+                    @foreach (var depart in Department.DepartList)
+                    {
+                        <a class="pb-3 btn btn-secondary" asp-action="Index">@depart</a>
+                    }
+                </div>
+            </div>
+            <div class="col-9">
+                @foreach (var item in Model)
+                {
+                    <div class="card" style="width: 18rem;">
+                        <img src="https://desudeport.ru/imgtmp/orign_100_w/data/example.jpg" class="card-img-top" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title">@item.Nom.Title</h5>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Отдел: @item.NomStock.Depart</li>
+                            <li class="list-group-item">Количество: @item.NomStock.Quantity</li>
+                        </ul>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
 </div>

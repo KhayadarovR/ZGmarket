@@ -24,22 +24,23 @@ public class NomStockRepository
         return NomStock.ToList();
     }
 
-    public async Task<IEnumerable<NomStock>> GetNomStock(int id)
+    public async Task<NomStock> GetNomStock(int id)
     {
         var query = $@"SELECT stock_id as {nameof(Models.NomStock.StockId)}, 
                             nom_id as {nameof(Models.NomStock.NomId)}, 
                             quantity as {nameof(Models.NomStock.Quantity)},
-                            id as {nameof(Models.NomStock.Id)}
+                            id as {nameof(Models.NomStock.Id)},
+                            depart as {nameof(NomStock.Depart)}
                             FROM nom_stock
                             WHERE id = {id}";
 
-        var NomStock = _context.QueryAsync<NomStock>(query);
-        if (NomStock == null)
+        var nomStock = await _context.QueryFirstAsync<NomStock>(query);
+        if (nomStock == null)
         {
             throw new Exception($"id stock ({id}) not found");
         }
 
-        return (IEnumerable<NomStock>)NomStock;
+        return nomStock;
     }
 
     public async Task<NomStock> GetOneNomStock(int id)
@@ -112,6 +113,20 @@ public class NomStockRepository
         catch (Exception ex)
         {
             throw new Exception("Ошибка заполнения данных " + ex.Message);
+        }
+    }
+
+    public async Task DeleteNomStock(int id)
+    {
+        var query = $"DELETE FROM `zgmarket`.`nom_stock` WHERE (`id` = '{id}');";
+
+        try
+        {
+            await _context.QueryAsync<NomType>(query);
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("Ошибка при удалении " + ex.Message);
         }
     }
 }

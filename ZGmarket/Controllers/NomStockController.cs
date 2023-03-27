@@ -70,13 +70,14 @@ namespace ZGmarket.Controllers
             }
         }
 
-        public async Task<IActionResult> Edit(int id)
+        [HttpPost]
+        public async Task<IActionResult> Edit(NomStock newNomStok)
         {
 
             try
             {
-                var dbStock = await _nomStockRepo.GetOneNomStock(id);
-                return View(dbStock);
+                var dbStock = await _nomStockRepo.SendNomToDepart(newNomStok.Id, newNomStok);
+                return RedirectToAction(nameof(Index));
             }
             catch (Exception e)
             {
@@ -85,12 +86,26 @@ namespace ZGmarket.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Edit(NomStock editNomStock)
+        public async Task<IActionResult> Edit(int id)
+        {
+
+            try
+            {
+                var dbNomStock = await _nomStockRepo.GetNomStock(id);
+                return View(dbNomStock);
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError("", "Некорректные данные " + e);
+                return View();
+            }
+        }
+
+        public async Task<IActionResult> Delete(int id)
         {
             try
             {
-                await _nomStockRepo.SendNomToDepart(editNomStock.Id, editNomStock);
+                await _nomStockRepo.DeleteNomStock(id);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception e)

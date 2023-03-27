@@ -1,21 +1,42 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using ZGmarket.Models;
+using ZGmarket.Models.Repository;
+using ZGmarket.Models.ViewModels;
 
 namespace ZGmarket.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly NomStockRepository _nomStockRepo;
+        private readonly NomRepository _nomRepo;
+        private readonly StockRepository _stockRepo;
+        public HomeController(NomStockRepository NomFromStockRepo, StockRepository stockRepo, NomRepository nomRepo)
         {
-            _logger = logger;
+            _nomStockRepo = NomFromStockRepo;
+            _nomRepo = nomRepo;
+            _stockRepo = stockRepo;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var ItemViewList = new List<HomeView>();
+
+            var nomstoks = await _nomStockRepo.GetNomDepart();
+
+            foreach (var nomdepart in nomstoks)
+            {
+                var tmp = new HomeView()
+                {
+                    Nom = await _nomRepo.GetNom(nomdepart.NomId),
+                    NomStock = await _nomStockRepo.GetNomStock(nomdepart.Id)
+                };
+
+                ItemViewList.Add(tmp);
+            }
+
+
+            return View(ItemViewList);
         }
 
         public IActionResult Privacy()
