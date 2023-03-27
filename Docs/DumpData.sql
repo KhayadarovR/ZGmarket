@@ -35,7 +35,7 @@ CREATE TABLE `emp` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `phone_UNIQUE` (`phone`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +44,7 @@ CREATE TABLE `emp` (
 
 LOCK TABLES `emp` WRITE;
 /*!40000 ALTER TABLE `emp` DISABLE KEYS */;
-INSERT INTO `emp` VALUES (1,'root','root','2005-04-20','root','root','root'),(2,'admin','admin','2002-04-05','Администратор','admin','admin'),(11,'Продавец','Кассир','2000-03-03','Продавец-кассир','salesman','salesman'),(12,NULL,NULL,NULL,'Стажер','8883','pas3'),(14,'Имя','Фамилия','2000-04-04','Стажер','8884','pas4'),(15,'Тест','Тест','2027-02-20','Продавец-кассир','121212','121212'),(16,'Степан','Степанов','2001-03-20','Стажер','89274463111','pasword1'),(17,'Norm','Name','2023-03-28','Продавец-кассир','test1','pt1'),(18,'Николай','Егоров','2000-01-01','Продавец-кассир','89978888888','qwe123'),(19,'Ник','Ник','2016-03-20','Стажер','8927446341812','pas3');
+INSERT INTO `emp` VALUES (1,'root','root','2005-04-20','root','root','root'),(2,'admin','admin','2002-04-05','Администратор','admin','admin'),(11,'Продавец','Кассир','2000-03-03','Продавец-кассир','salesman','salesman'),(12,NULL,NULL,NULL,'Стажер','8883','pas3'),(14,'Имя','Фамилия','2000-04-04','Стажер','8884','pas4'),(15,'Тест','Тест','2027-02-20','Продавец-кассир','121212','121212'),(16,'Степан','Степанов','2001-03-20','Стажер','89274463111','pasword1'),(17,'Norm','Name','2023-03-28','Продавец-кассир','test1','pt1'),(18,'Николай','Егоров','2000-01-01','Продавец-кассир','89978888888','qwe123'),(19,'Ник','Ник','2016-03-20','Стажер','8927446341812','pas3'),(21,'Разиль','Разиль','2010-10-20','Администратор','89274463438','razil228');
 /*!40000 ALTER TABLE `emp` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -61,7 +61,7 @@ CREATE TABLE `n_type` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   UNIQUE KEY `title_UNIQUE` (`title`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,7 +70,7 @@ CREATE TABLE `n_type` (
 
 LOCK TABLES `n_type` WRITE;
 /*!40000 ALTER TABLE `n_type` DISABLE KEYS */;
-INSERT INTO `n_type` VALUES (2,'игрушка'),(8,'молочная продукция'),(7,'мясное'),(3,'одежда'),(1,'посуда');
+INSERT INTO `n_type` VALUES (2,'игрушка'),(9,'канцтовары '),(8,'молочная продукция'),(7,'мясное'),(3,'одежда'),(1,'посуда');
 /*!40000 ALTER TABLE `n_type` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -92,7 +92,7 @@ CREATE TABLE `nom` (
   UNIQUE KEY `title_UNIQUE` (`title`),
   KEY `type_ind` (`type_id`),
   CONSTRAINT `nom_ibfk_1` FOREIGN KEY (`type_id`) REFERENCES `n_type` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -101,7 +101,7 @@ CREATE TABLE `nom` (
 
 LOCK TABLES `nom` WRITE;
 /*!40000 ALTER TABLE `nom` DISABLE KEYS */;
-INSERT INTO `nom` VALUES (1,1,'Молоко 1л',20,140),(4,8,'Творог 100г',5,160),(5,3,'Свитер шелк',0,2500),(6,2,'Трансформер',0,500),(7,7,'Треска',10,600);
+INSERT INTO `nom` VALUES (1,1,'Молоко 1л',20,140),(4,8,'Творог 100г',5,160),(5,3,'Свитер шелк',0,2500),(6,2,'Трансформер',0,500),(7,7,'Треска',10,600),(8,9,'Ручка гелевая',0,6);
 /*!40000 ALTER TABLE `nom` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -123,7 +123,7 @@ CREATE TABLE `nom_stock` (
   KEY `stock_idfk_idx` (`stock_id`),
   CONSTRAINT `nom_ibfk_2` FOREIGN KEY (`nom_id`) REFERENCES `nom` (`id`),
   CONSTRAINT `stock_idfk` FOREIGN KEY (`stock_id`) REFERENCES `stock` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -132,7 +132,7 @@ CREATE TABLE `nom_stock` (
 
 LOCK TABLES `nom_stock` WRITE;
 /*!40000 ALTER TABLE `nom_stock` DISABLE KEYS */;
-INSERT INTO `nom_stock` VALUES (11,7,6,6,'Товары для животных'),(14,2,5,1111,'Бакалея'),(15,2,7,13,'МясоРыба');
+INSERT INTO `nom_stock` VALUES (11,7,6,6,'Товары для животных'),(14,2,5,1111,'Бакалея'),(15,2,7,13,'МясоРыба'),(16,14,8,1000,'Прочее');
 /*!40000 ALTER TABLE `nom_stock` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -151,7 +151,7 @@ CREATE TABLE `stock` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `idstock` (`id`),
   UNIQUE KEY `title_UNIQUE` (`title`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -160,7 +160,7 @@ CREATE TABLE `stock` (
 
 LOCK TABLES `stock` WRITE;
 /*!40000 ALTER TABLE `stock` DISABLE KEYS */;
-INSERT INTO `stock` VALUES (1,'Сухой склад','проспект Чулман, 40, Набережные Челны, РТ','Относительная влажность в помещении должна составлять от 50 до 70%, температура – от +5 до +18'),(2,'Тестовый склад','улица Пушкина, дом Колотушкина','Обычный склад '),(7,'Большой склад','Бункер в центре города','100 на 100 метров');
+INSERT INTO `stock` VALUES (1,'Сухой склад','проспект Чулман, 40, Набережные Челны, РТ','Относительная влажность в помещении должна составлять от 50 до 70%, температура – от +5 до +18'),(2,'Тестовый склад','улица Пушкина, дом Колотушкина','Обычный склад '),(7,'Большой склад','Бункер в центре города','100 на 100 метров'),(14,'Морозильная камера','Комсомольская Набережная ул., 34А Набережные Челны РТ','продукты хранятся при −18°С, а −24°С требуется только для режима быстрой заморозки.');
 /*!40000 ALTER TABLE `stock` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -186,7 +186,7 @@ CREATE TABLE `supply` (
   CONSTRAINT `supply_ibfk_1` FOREIGN KEY (`nom_id`) REFERENCES `nom` (`id`),
   CONSTRAINT `supply_ibfk_2` FOREIGN KEY (`stock_id`) REFERENCES `stock` (`id`),
   CONSTRAINT `supply_ibfk_3` FOREIGN KEY (`emp_id`) REFERENCES `emp` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -195,7 +195,7 @@ CREATE TABLE `supply` (
 
 LOCK TABLES `supply` WRITE;
 /*!40000 ALTER TABLE `supply` DISABLE KEYS */;
-INSERT INTO `supply` VALUES (30,6,7,1,6,'2022-10-10'),(31,7,1,2,6,'2022-10-10'),(32,6,7,2,6,'2022-02-20'),(33,5,2,18,1111,'2023-10-10'),(34,7,2,18,13,'2023-11-11');
+INSERT INTO `supply` VALUES (30,6,7,1,6,'2022-10-10'),(31,7,1,2,6,'2022-10-10'),(32,6,7,2,6,'2022-02-20'),(33,5,2,18,1111,'2023-10-10'),(34,7,2,18,13,'2023-11-11'),(35,8,14,21,1000,'2023-03-27');
 /*!40000 ALTER TABLE `supply` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -208,4 +208,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-27 14:38:21
+-- Dump completed on 2023-03-27 19:08:22
