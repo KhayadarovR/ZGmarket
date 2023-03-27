@@ -39,6 +39,27 @@ namespace ZGmarket.Controllers
             return View(ItemViewList);
         }
 
+        public async Task<IActionResult> Depart(string depart)
+        {
+            var ItemViewList = new List<HomeView>();
+
+            var nomstoks = await _nomStockRepo.GetNomDepart(depart);
+
+            foreach (var nomdepart in nomstoks)
+            {
+                var tmp = new HomeView()
+                {
+                    Nom = await _nomRepo.GetNom(nomdepart.NomId),
+                    NomStock = await _nomStockRepo.GetNomStock(nomdepart.Id)
+                };
+
+                ItemViewList.Add(tmp);
+            }
+
+
+            return View("Index", ItemViewList);
+        }
+
         public IActionResult Privacy()
         {
             return View();

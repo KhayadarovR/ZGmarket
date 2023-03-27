@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using MySqlConnector;
+using System.Reflection.Metadata;
 
 namespace ZGmarket.Models.Repository;
 
@@ -85,11 +86,12 @@ public class NomStockRepository
         var query = $@"SELECT stock_id as {nameof(Models.NomStock.StockId)}, 
                             nom_id as {nameof(Models.NomStock.NomId)}, 
                             quantity as {nameof(Models.NomStock.Quantity)},
-                            id as {nameof(Models.NomStock.Id)}
+                            id as {nameof(Models.NomStock.Id)},
+                            depart as {nameof(Models.NomStock.Depart)}
                             FROM nom_stock
                             WHERE depart = '{departName}'";
 
-        var NomStock = _context.QueryAsync<NomStock>(query);
+        var NomStock = await _context.QueryAsync<NomStock>(query);
         if (NomStock == null)
         {
             throw new Exception($"products not found");

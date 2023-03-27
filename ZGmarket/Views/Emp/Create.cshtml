@@ -33,12 +33,12 @@
             <div class="form-group">
                 <label asp-for="Position" class="control-label"></label>
                 <select asp-for="Position" class="form-select" aria-label="Default select example">
-                    <option selected>@Positions.Trainee</option>
-                    <option value="2">@Positions.Salesman</option>
-                    <option value="3">@Positions.Security</option>
-                    <option value="4">@Positions.Director</option>
-                    <option value="5">@Positions.Admin</option>
-                    <option value="6">@Positions.root</option>
+                    <option value="@Positions.Trainee" selected>@Positions.Trainee</option>
+                    <option value="@Positions.Salesman">@Positions.Salesman</option>
+                    <option value="@Positions.Security">@Positions.Security</option>
+                    <option value="@Positions.Director">@Positions.Director</option>
+                    <option value="@Positions.Admin">@Positions.Admin</option>
+                    <option value="@Positions.root">@Positions.root</option>
                 </select>
                 <span asp-validation-for="Position" class="text-danger"></span>
             </div>
