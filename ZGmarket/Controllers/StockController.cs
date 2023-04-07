@@ -24,7 +24,7 @@ namespace ZGmarket.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError("err", ex.Message);
-                return View(ModelState);
+                return View();
             }
         }
 
